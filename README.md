@@ -2,11 +2,11 @@
 Simple plugin that integrates the popular ecommerce plugin for Wordpress called Woocommerce with Polylang plugin for Wordpress
 
 # How to use
-It's fairly simply, please follow the steps
+It's fairly simple, please follow the steps
 * Make sure you have installed Polylang and Woocommerce
 * Install Woocommerce-Polylang-Integration from this repo
-* Go to Settings > Languages > Settings and mark the checkbox for Custom post types => Products
-* Add your products in your languages using the "plus" icon Products
+* Go to Dashboard > Settings > Languages > Settings and mark the checkbox for Custom post types => Products
+* Add your products in your languages using the "plus" icon in Dashboard > Products
 * and done!
 
 If you have any question feel free to contact me
