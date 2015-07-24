@@ -17,7 +17,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 {
 	if (function_exists('pll_get_post')) // is Polylang activated?
 	{ 
-	        add_filter('woocommerce_get_checkout_url', 'pll_woocommerce_get_page_id');
 	        add_filter('woocommerce_get_checkout_page_id', 'pll_woocommerce_get_page_id');
 	        add_filter('woocommerce_get_cart_page_id', 'pll_woocommerce_get_page_id');
 	        add_filter('woocommerce_get_myaccount_page_id', 'pll_woocommerce_get_page_id');
