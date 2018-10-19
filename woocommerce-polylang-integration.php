@@ -21,7 +21,7 @@ define( 'WPIDG_URL', plugin_dir_url( __FILE__ ) );
  */
 function wpidg_init() {
 	$is_woocommerce_active = in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
-	$is_polylang_active    = POLYLANG_BASENAME;
+	$is_polylang_active    = defined('POLYLANG_BASENAME');
 	if ( $is_woocommerce_active && $is_polylang_active ):
 		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'helpers.php';
 		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'TranslationDownloader.php';
