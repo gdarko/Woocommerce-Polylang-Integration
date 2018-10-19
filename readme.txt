@@ -22,8 +22,18 @@ Simple plugin that integrates WooCommerce with Polylang to add multiple language
 = If you have any question feel free to get in touch =
 
 == Frequently Asked Questions ==
-Why was this plugin created?
-I am constantly having a lot multilingual Projects that involv Woocommerce and my best open source alternative is using Polylang. So i did this plugin to make Woocommerce work in combination with Polylang
+
+= Can i use this plugin with other ecommerce plugins? =
+
+No, this plugin is intended to work with WooCommerce only.
+
+= Does this work with WPML plugin? =
+
+No. This plugin only supports Polylang and you can only use one at a time.
+
+= Do i need to change any settings after activating?
+
+No. For now the plugin is plug and play and doesn't need any configuration. However for the future releases i planned to add configurable options in the WordPress Dashboard.
 
 == Changelog ==
 = Version 1.0.1 =
