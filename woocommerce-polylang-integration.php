@@ -3,36 +3,32 @@
  * Plugin Name: WooCommerce Polylang Integration
  * Plugin URI: http://darkog.com/plugins/woocommerce-polylang/
  * Description: Integrates Polylang with Woocommerce, checkout, cart, product pages and links are translated
- * Version: 0.2
+ * Version: 1.0.0
  * Author: Darko Gjorgjijoski
  * Author URI: http://darkog.com/
  * License: GPLv2
  */
 
 // No direct access
-defined('ABSPATH') or die("No script kiddies please!");
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 
-// Only initialize the plugin if woocommerce is active!
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) 
-{
-	if (function_exists('pll_get_post')) // is Polylang activated?
-	{ 
-	        add_filter('woocommerce_get_checkout_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_cart_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_myaccount_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_edit_address_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_view_order_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_change_password_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_thanks_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_shop_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_terms_page_id', 'pll_woocommerce_get_page_id');
-	        add_filter('woocommerce_get_pay_page_id', 'pll_woocommerce_get_page_id');
+define( 'WPIDG_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WPIDG_VERSION', '1.0.0' );
+define( 'WPIDG_URL', plugin_dir_url( __FILE__ ) );
 
-		function pll_woocommerce_get_page_id($id) 
-		{
-			return pll_get_post($id); // translate the page to current language
-		}
-	}
+/**
+ *  Only initialize the plugin if woocommerce and polylang are active!
+ */
+function wpidg_init() {
+	$is_woocommerce_active = in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+	$is_polylang_active    = POLYLANG_BASENAME;
+	if ( $is_woocommerce_active && $is_polylang_active ):
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'helpers.php';
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'TranslationDownloader.php';
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . 'ajax.php';
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . 'general.php';
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . 'cart.php';
+		require_once WPIDG_PATH . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . 'translations.php';
+	endif;
 }
-
-?>
+add_action( 'plugins_loaded', 'wpidg_init' );
