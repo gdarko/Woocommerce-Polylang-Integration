@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Polylang Integration
  * Plugin URI: http://darkog.com/plugins/woocommerce-polylang/
  * Description: Integrates Polylang with Woocommerce, checkout, cart, product pages and links are translated
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Darko Gjorgjijoski
  * Author URI: http://darkog.com/
  * License: GPLv2
@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 
 define( 'WPIDG_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WPIDG_VERSION', '1.0.1' );
+define( 'WPIDG_VERSION', '1.0.2' );
 define( 'WPIDG_URL', plugin_dir_url( __FILE__ ) );
 
 /**

@@ -24,5 +24,4 @@ function wpidg_maybe_download_translation() {
 		return false;
 	}
 }
-
 add_action( 'load-settings_page_mlang', 'wpidg_maybe_download_translation' );

@@ -10,7 +10,6 @@
  */
 function wpidg_woocommerce_ajax_get_endpoint( $url, $request ) {
 	global $polylang;
-
 	return parse_url( $polylang->filters_links->links->get_home_url( $polylang->curlang ), PHP_URL_PATH ) . '?' . parse_url( $url, PHP_URL_QUERY );
 }
 add_filter( 'woocommerce_ajax_get_endpoint', 'wpidg_woocommerce_ajax_get_endpoint', 15, 2 );

@@ -16,10 +16,8 @@ function wpidg_woocommerce_add_to_cart_product_id( $ID ) {
 			return $product->get_id();
 		}
 	}
-
 	return $ID;
 }
-
 add_filter( 'woocommerce_add_to_cart_product_id', 'wpidg_woocommerce_add_to_cart_product_id', 15, 1 );
 
 
@@ -51,7 +49,6 @@ function wpidg_woocommerce_cart_item_product( $cart_item_data, $cart_item ) {
 
 	return $cart_item_data;
 }
-
 add_filter( 'woocommerce_cart_item_product', 'wpidg_woocommerce_cart_item_product', 15, 2 );
 
 /**
@@ -69,7 +66,6 @@ function wpidg_woocommerce_cart_item_product_id( $cart_product_id ) {
 
 	return $cart_product_id;
 }
-
 add_filter( 'woocommerce_cart_item_product_id', 'wpidg_woocommerce_cart_item_product_id', 15, 1 );
 
 /**
@@ -90,7 +86,6 @@ function wpidg_woocommerce_cart_item_permalink( $item_permalink, $cart_item ) {
 
 	return $item_permalink;
 }
-
 add_filter( 'woocommerce_cart_item_permalink', 'wpidg_woocommerce_cart_item_permalink', 15, 2 );
 
 
@@ -149,7 +144,6 @@ function wpidg_woocommerce_get_item_data( $item_data, $cart_item ) {
 
 	return ! empty( $item_data_translation ) ? $item_data_translation : $item_data;
 }
-
 add_filter( 'woocommerce_get_item_data', 'wpidg_woocommerce_get_item_data', 15, 2 );
 
 
@@ -166,7 +160,6 @@ function wpidg_enqueue_scripts() {
 		'jquery-cookie'
 	), WPIDG_VERSION, true );
 }
-
 add_action( 'wp_enqueue_scripts', 'wpidg_enqueue_scripts', 25, 0 );
 
 
@@ -178,10 +171,9 @@ add_action( 'wp_enqueue_scripts', 'wpidg_enqueue_scripts', 25, 0 );
  *
  * @return string
  */
-function woocommerce_add_to_cart_handler( $product_type, $product ) {
+function wpidg_woocommerce_add_to_cart_handler( $product_type, $product ) {
 	return 'variable' === $product_type ? 'wpidg_variable' : $product_type;
 }
-
 add_filter( 'woocommerce_add_to_cart_handler', 'wpidg_woocommerce_add_to_cart_handler', 10, 2 );
 
 /**
@@ -345,5 +337,4 @@ function wpidg_woocommerce_add_to_cart_handler_wpidg_variable( $url ) {
 		}
 	}
 }
-
 add_action( 'woocommerce_add_to_cart_handler_wpidg_variable', 'wpidg_woocommerce_add_to_cart_handler_wpidg_variable', 10, 1 );

@@ -2,10 +2,10 @@
 Contributors: DarkoG
 Tags: woocommerce, polylang, integration, multilingual
 Requires at least: 3.9
-Tested up to: 4.9.8
+Tested up to: 5.1.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable Tag: 1.0.1
+Stable Tag: 1.0.2
 
 Easily integrate your Woocommerce store with polylang.
 
@@ -36,9 +36,12 @@ No. This plugin only supports Polylang and you can only use one at a time.
 No. For now the plugin is plug and play and doesn't need any configuration. However for the future releases i planned to add configurable options in the WordPress Dashboard.
 
 == Changelog ==
+= Version 1.0.2 =
+* Compatibility with WordPress 5.1+
+* Fixed shop page
 = Version 1.0.1 =
 * Added missing files
-= Version 1.0.1 =
+= Version 1.0.0 =
 * Major version that fixes most of the bugs
 = Version 0.1.1 =
 * Some Minor Changes

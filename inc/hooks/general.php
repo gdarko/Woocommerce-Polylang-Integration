@@ -35,7 +35,6 @@ function wpidg_woocommerce_get_checkout_url( $checkout_url ) {
 
 	return $checkout_url;
 }
-
 add_filter( 'woocommerce_get_checkout_url', 'wpidg_woocommerce_get_checkout_url', 15, 1 );
 
 /**
@@ -61,7 +60,6 @@ function wpidg_pll_get_archive_url( $url, $lang ) {
 
 	return $url;
 }
-
 add_filter( 'pll_get_archive_url', 'wpidg_pll_get_archive_url', 15, 2 );
 
 /**
@@ -85,7 +83,7 @@ function wpidg_parse_request( \WP $wp ) {
 		if ( ! empty( $wp->query_vars['pagename'] ) ) {
 			$shop_page = get_post( $shop_page_id );
 			$page      = explode( '/', $wp->query_vars['pagename'] );
-			if ( isset( $shopPage->post_name ) && $shop_page->post_name == $page[ count( $page ) - 1 ] ) {
+			if ( isset( $shop_page->post_name ) && $shop_page->post_name == $page[ count( $page ) - 1 ] ) {
 				unset( $wp->query_vars['page'] );
 				unset( $wp->query_vars['pagename'] );
 				$wp->query_vars['post_type'] = 'product';
@@ -93,8 +91,7 @@ function wpidg_parse_request( \WP $wp ) {
 		}
 	}
 }
-
-add_action( 'parse_request', 'wpidg_parse_request', 15, 1 );
+add_action( 'parse_request', 'wpidg_parse_request', 10, 1 );
 
 /**
  * If ids are passed to the WC product query when using shortcode to display the products
@@ -123,9 +120,7 @@ function wpidg_woocommerce_shortcode_products_query( $query_args, $atts ) {
 
 	return $query_args;
 }
-
 add_filter( 'woocommerce_shortcode_products_query', 'wpidg_woocommerce_shortcode_products_query', 10, 2 );
-
 
 /**
  * Redirect to correct page
