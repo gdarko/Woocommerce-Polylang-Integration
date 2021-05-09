@@ -78,7 +78,7 @@ function wpidg_get_product( $product, $slug = '' ) {
  *
  * @return integer id of variation parent post
  */
-function wpidg_get_product_parent_id( WC_Product $product ) {
+function wpidg_get_product_parent_id( $product ) {
 	if ( $product ) {
 		return $product->get_parent_id();
 	} else {

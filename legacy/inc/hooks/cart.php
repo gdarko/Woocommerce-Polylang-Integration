@@ -155,7 +155,7 @@ function wpidg_enqueue_scripts() {
 	wp_deregister_script( 'wc-cart-fragments' );
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	$file_name   = 'cart-fragments' . $suffix . '.js';
-	wp_enqueue_script( 'wc-cart-fragments', WPIDG_URL . 'assets/js/'. $file_name, array(
+	wp_enqueue_script( 'wc-cart-fragments', WPIDG_URL . 'legacy/assets/js/'. $file_name, array(
 		'jquery',
 		'jquery-cookie'
 	), WPIDG_VERSION, true );
@@ -210,7 +210,7 @@ function wpidg_woocommerce_add_to_cart_handler_wpidg_variable( $url ) {
 	// If no variation ID is set, attempt to get a variation ID from posted attributes.
 	if ( empty( $variation_id ) ) {
 		/* @var WC_Product_Data_Store_CPT $data_store */
-		$data_store   = WC_Data_Store::load( 'product' );
+		$data_store   = \WC_Data_Store::load( 'product' );
 		$variation_id = $data_store->find_matching_product_variation( $adding_to_cart, wp_unslash( $_POST ) );
 	}
 	/**
