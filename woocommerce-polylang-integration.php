@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WPIDG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPIDG_FILE', __FILE__ );
 define( 'WPIDG_URL', plugin_dir_url( __FILE__ ) );
-define( 'WPIDG_VERSION', '1.2.0-alpha' );
+define( 'WPIDG_VERSION', '1.2.0' );
 define( 'WPIDG_BASENAME', plugin_basename( WPIDG_PATH ) );
 define( 'WPIDG_MIN_PLL_VERSION', '2.1' );
 
