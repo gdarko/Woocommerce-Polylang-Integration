@@ -5,7 +5,7 @@ Requires at least: 4.2
 Tested up to: 5.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable Tag: 1.2.0
+Stable Tag: 1.2.1
 
 Easily integrate your Woocommerce store with polylang.
 
@@ -80,6 +80,9 @@ If the plugin doesn't work on your site, please check WooCommerce > Status > Woo
 
 
 == Changelog ==
+
+= Version 1.2.1 =
+* Fix shop page pagination
 
 = Version 1.2.0 =
 * Major rewrite
