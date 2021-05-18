@@ -61,7 +61,7 @@ final class WP_Hooks extends Base {
 		if ( has_filter( 'rewrite_rules_array', array( $this, 'rewrite_rules_array_before' ) ) ) {
 			return;
 		}
-		add_filter( 'rewrite_rules_array', array( $this, 'rewrite_rules_array_before' ), 5 );
+		//add_filter( 'rewrite_rules_array', array( $this, 'rewrite_rules_array_before' ), 5 );
 		add_filter( 'rewrite_rules_array', array( $this, 'rewrite_rules_array_after' ), 20 );
 	}
 
@@ -85,7 +85,7 @@ final class WP_Hooks extends Base {
 		$uri          = trailingslashit( get_page_uri( $ship_page_id ) );
 		$translations = $this->get_shop_page_slugs();
 
-		if ( count( $translations ) <= 1 ) {
+		if ( count( $translations ) < 2 ) {
 			return $rules;
 		}
 
@@ -102,17 +102,17 @@ final class WP_Hooks extends Base {
 				$search  = array();
 				$replace = array();
 
-				for ( $i = 1; $i <= 8; $i ++ ) {
+				for ( $i = 1; $i < 9; $i ++ ) {
 					array_push( $search, '[' . $i . ']' );
 					array_push( $replace, '[' . ( $i + 1 ) . ']' );
 				}
 
-				$new_rule_k               = str_replace( $uri, $new_uri, $key );
-				$new_rules[ $new_rule_k ] = str_replace( $search, $replace, $rule );
+				$new_rules[ str_replace( $uri, $new_uri, $key ) ] = str_replace( $search, $replace, $rule );
 
 				unset( $rules[ $key ] );
 
 			}
+
 		} else {
 
 			// Set one rewrite rule per language when language is set from content,
