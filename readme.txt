@@ -5,7 +5,7 @@ Requires at least: 4.2
 Tested up to: 5.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable Tag: 1.2.1
+Stable Tag: 1.2.2
 
 Easily integrate your Woocommerce store with polylang.
 
@@ -80,6 +80,11 @@ If the plugin doesn't work on your site, please check WooCommerce > Status > Woo
 
 
 == Changelog ==
+
+= Version 1.2.2 =
+* Fix after-order redirect endpoint. Always load the correct language
+* Fix cart persistence when switching between languages
+* Fix a warning triggered by the hook that translates the breadcrumbs
 
 = Version 1.2.1 =
 * Fix shop page pagination
