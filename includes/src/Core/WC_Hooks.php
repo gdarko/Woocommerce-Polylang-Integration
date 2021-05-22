@@ -215,7 +215,7 @@ final class WC_Hooks extends Base {
 		// Translates the endpoints and
 		add_filter( 'pll_translation_url', array( $this, 'pages_handle_endpoints' ), 10 );
 		add_filter( 'pll_translation_url', array( $this, 'pages_handle_layered_nav' ), 10, 2 );
-
+		
 	}
 
 	/**
@@ -416,22 +416,29 @@ final class WC_Hooks extends Base {
 	 * Make the order received url in the same language as the order
 	 *
 	 * @param $url
-	 * @param $order
+	 * @param \WC_Order $order
 	 *
 	 * @return string
 	 */
 	public function get_checkout_order_received_url( $url, $order ) {
 
-		$lang = $this->orders->get_language( $order->get_id() );
+		static $has_ran = false;
+		if ( $has_ran ) {
+			return $url;
+		}
 
+		$lang = $this->orders->get_language( $order->get_id() );
 		if ( empty( $lang ) ) {
 			return $url;
 		}
 
+		add_filter( 'option_woocommerce_checkout_page_id', 'pll_get_post' );
+
+		$has_ran       = true;
 		$prev_curlang  = PLL()->curlang;
 		PLL()->curlang = PLL()->model->get_language( $lang );
-		$url           = wc_get_endpoint_url( 'order-received', $order->get_id(), wc_get_checkout_url() );
-		$url           = add_query_arg( 'key', $order->get_order_key(), $url );
+		$url           = $order->get_checkout_order_received_url();
+		$has_ran       = false;
 		PLL()->curlang = $prev_curlang;
 
 		return $url;
@@ -2238,7 +2245,7 @@ final class WC_Hooks extends Base {
 	 * Print the system status report
 	 */
 	public function view_system_status_report() {
-	    $report = $this->get_woocommerce_pages_report();
+		$report = $this->get_woocommerce_pages_report();
 		include trailingslashit( WPIDG_PATH ) . 'templates/system-status-report.php';
 	}
 }

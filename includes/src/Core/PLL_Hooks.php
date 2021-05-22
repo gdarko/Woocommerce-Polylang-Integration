@@ -376,12 +376,11 @@ final class PLL_Hooks extends Base {
 
 		// Reload cart contents
 		if ( ! PLL()->options['force_lang'] ) {
-			WC()->cart->get_cart_from_session();
-		}
-
-		// Validate
-		if ( ! $this->is_pll_frontend() || 'page' !== get_option( 'show_on_front' ) ) {
-			return $lang;
+			if ( ! did_action( 'pll_language_defined' ) ) {
+				add_action( 'pll_language_defined', array( WC()->cart, 'get_cart_from_session' ) );
+			} else {
+				WC()->cart->get_cart_from_session();
+			}
 		}
 
 		$languages = PLL()->model->get_languages_list();
