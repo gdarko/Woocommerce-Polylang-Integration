@@ -215,7 +215,7 @@ final class WC_Hooks extends Base {
 		// Translates the endpoints and
 		add_filter( 'pll_translation_url', array( $this, 'pages_handle_endpoints' ), 10 );
 		add_filter( 'pll_translation_url', array( $this, 'pages_handle_layered_nav' ), 10, 2 );
-		
+
 	}
 
 	/**
@@ -236,7 +236,7 @@ final class WC_Hooks extends Base {
 	 * Translates the woocommerce breadcrumbs
 	 */
 	public function translate_breadcrumbs() {
-		add_filter( 'woocommerce_breadcrumb_home_url', 'pll_home_url' );
+		add_filter( 'woocommerce_breadcrumb_home_url', array( $this, 'breadcrumb_home_url' ) );
 		add_filter( 'option_woocommerce_permalinks', array( $this, 'option_woocommerce_permalinks' ) );
 	}
 
@@ -409,6 +409,17 @@ final class WC_Hooks extends Base {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * The breadcrumbs home url
+	 *
+	 * @param $home_url
+	 *
+	 * @return mixed
+	 */
+	public function breadcrumb_home_url( $home_url ) {
+		return pll_home_url();
 	}
 
 
