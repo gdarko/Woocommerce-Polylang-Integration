@@ -359,15 +359,16 @@ class Base {
 			$lang = pll_current_language();
 		}
 		foreach ( $contents as $key => $item ) {
-			$translated_product_id = ! empty( $item['product_id'] ) ? $this->products->get( $item['product_id'], $lang ) : null;
-			if ( $translated_product_id !== $item['product_id'] ) {
-				unset( $contents[ $key ] );
-				$item                     = $this->get_translated_cart_item( $item, $lang );
-				$contents[ $item['key'] ] = $item;
-				do_action( 'wpi_cart_item_after_translation', $item, $key );
+			if( $item['product_id'] ) {
+				$translated_product_id = $this->products->get( $item['product_id'], $lang );
+				if ( $translated_product_id && $translated_product_id !== $item['product_id'] ) {
+					unset( $contents[ $key ] );
+					$item                     = $this->get_translated_cart_item( $item, $lang );
+					$contents[ $item['key'] ] = $item;
+					do_action( 'wpi_cart_item_translated', $item, $key );
+				}
 			}
 		}
-
 		return apply_filters( 'wpi_cart_contents_translated', $contents, $lang );
 	}
 

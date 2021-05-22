@@ -258,8 +258,14 @@ final class WC_Hooks extends Base {
 	 */
 	public function translate_cart() {
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cart_scripts' ), 100 );
-		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'cart_loaded_from_session' ) );
+		add_filter( 'pll_set_language_from_query', array( $this, 'cart_language_from_query' ), 5 );
+
+		if ( ! did_action( 'pll_language_defined' ) ) {
+			add_action( 'pll_language_defined', array( $this, 'cart_init' ) );
+		} else {
+			$this->cart_init();
+		}
+
 		if ( version_compare( WC()->version, '3.6', '>=' ) ) {
 			add_filter( 'woocommerce_cart_hash', array( $this, 'cart_hash' ), 10, 2 );
 		} else {
@@ -269,15 +275,19 @@ final class WC_Hooks extends Base {
 	}
 
 	/**
+	 * Init cart integration
+	 */
+	public function cart_init() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cart_scripts' ), 100 );
+		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'cart_loaded_from_session' ) );
+	}
+
+	/**
 	 * Prints out the javascript for reseting the cart cache
 	 */
 	public function enqueue_cart_scripts() {
 
 		if ( ! isset( $_COOKIE[ PLL_COOKIE ] ) || pll_current_language() == $_COOKIE[ PLL_COOKIE ] ) {
-			return;
-		}
-
-		if ( ! function_exists( 'wp_add_inline_script' ) ) {
 			return;
 		}
 
@@ -298,22 +308,41 @@ final class WC_Hooks extends Base {
 		$cart_hash_key = esc_js( $cart_hash_key );
 		$fragment_name = esc_js( $fragment_name );
 
-		wp_add_inline_script(
-			'wc-cart-fragments',
-			'var handleCartCache = function(){
+		if ( function_exists( 'wp_add_inline_script' ) ) {
+			wp_add_inline_script(
+				'wc-cart-fragments',
+				'var handleCartCache = function(){
                 sessionStorage.removeItem( "' . $cart_hash_key . '" );
                 sessionStorage.removeItem( "' . $fragment_name . '" );
             };
-            if (
-                document.readyState === "complete" ||
-                (document.readyState !== "loading" && !document.documentElement.doScroll)
-            ) {
+            if ( document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll) ) {
                 handleCartCache();
             } else {
                 document.addEventListener("DOMContentLoaded", handleCartCache);
             }',
-			'before'
-		);
+				'before'
+			);
+		}
+	}
+
+	/**
+	 * Reload cart contents when language is set from query
+	 */
+	public function cart_language_from_query() {
+		if ( ! PLL()->options['force_lang'] ) {
+			if ( ! did_action( 'pll_language_defined' ) ) {
+				add_action( 'pll_language_defined', array( $this, 'reload_cart_contents' ) );
+			} else {
+				$this->reload_cart_contents();
+			}
+		}
+	}
+
+	/**
+	 * Reload cart contents from session
+	 */
+	public function reload_cart_contents() {
+		WC()->cart->get_cart_from_session();
 	}
 
 	/**

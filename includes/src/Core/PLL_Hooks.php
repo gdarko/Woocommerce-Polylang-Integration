@@ -3,6 +3,7 @@
 namespace CodeVerve\WCPLL\Core;
 
 use CodeVerve\WCPLL\Data\Products;
+use CodeVerve\WCPLL\Data\Session;
 use CodeVerve\WCPLL\Utils\ArrayUtils;
 use CodeVerve\WCPLL\Utils\StringUtils;
 
@@ -373,15 +374,6 @@ final class PLL_Hooks extends Base {
 	 * @return mixed
 	 */
 	public function set_language_from_query( $lang, $query ) {
-
-		// Reload cart contents
-		if ( ! PLL()->options['force_lang'] ) {
-			if ( ! did_action( 'pll_language_defined' ) ) {
-				add_action( 'pll_language_defined', array( WC()->cart, 'get_cart_from_session' ) );
-			} else {
-				WC()->cart->get_cart_from_session();
-			}
-		}
 
 		$languages = PLL()->model->get_languages_list();
 		$pages     = wp_list_pluck( $languages, 'page_on_front' );
